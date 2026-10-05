@@ -66,18 +66,21 @@ Get your token at https://console.apify.com/account/integrations, paste it in, a
 - `domains` (array): list of bare domains for batch processing. Takes precedence over `domain`.
 - `batchSize` (number): domains enriched concurrently per wave in batch mode. Default 5, maximum 10.
 - `skipCache` (boolean): force a fresh enrichment and ignore the 7 day result cache.
+- `failOnMostlyEmpty` (boolean): by default the run ends FAILED when more than half the rows resolve no firmographic field, and this tool then returns an error. The rows are still saved, each with `resolution_status` and `empty_reason`. Set false to end the run SUCCEEDED and get the rows back. Default true.
+
+The tool starts the actor run and polls it to a finished status, so a long run is not cut off at 300 seconds. If the run is still going after 30 minutes, the call stops waiting and returns the run ID with a link to it in the Apify Console, where the results land when it finishes. A run that does not succeed comes back as an error with its run ID and status.
 
 ## Full actor documentation
 
-For the complete input and output reference, pricing, and run history, see the Company Firmographic Enricher actor on the Apify Store (canonical immutable Actor ID URL):
+For the complete input and output reference, pricing, and run history, see the Company Firmographic Enricher actor on the Apify Store (immutable actor ID `YlUtLWjfPpqykmB8g`):
 
-https://apify.com/mambalabs/YlUtLWjfPpqykmB8g
+https://apify.com/mambalabs/company-firmographic-enricher
 
 ---
 
 ## Mamba Labs GTM Suite
 
-This server is part of the **Mamba Labs GTM Suite**, a fleet of twelve specialized MCP servers for go-to-market signal intelligence, each backed by a dedicated Apify actor.
+This server is part of the **Mamba Labs GTM Suite**, a fleet of 54 MCP servers for go-to-market data, each backed by a dedicated Apify actor. The table lists the actors the suite started with; every server is listed at https://mambabuilt.com.
 
 | Actor | Immutable Actor ID |
 |---|---|
