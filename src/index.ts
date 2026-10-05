@@ -30,10 +30,16 @@ function compact(obj: Record<string, unknown>): Record<string, unknown> {
   return out;
 }
 
-// How long this wrapper waits for a run, in milliseconds. The run itself keeps
-// the actor's own default timeout; past this wait the call returns the run id
-// and console link instead of an error that hides a run still billing.
-const WRAPPER_WAIT_MS = 30 * 60 * 1000;
+// How long the actor run itself is allowed to take, in seconds. One value for
+// every Mamba Labs wrapper, set 2026-10-05: start and poll exists so a long run
+// survives, and a shorter limit would end the long runs it was built for. Past
+// this limit the run ends TIMED-OUT and the caller is told so, with the run id.
+const ACTOR_RUN_TIMEOUT_SECS = 1800;
+
+// How long this wrapper waits for that run, in milliseconds. The actor's own
+// timeout plus two minutes, so the run's own TIMED-OUT status is what the
+// caller sees rather than the wrapper giving up first and reporting nothing.
+const WRAPPER_WAIT_MS = (ACTOR_RUN_TIMEOUT_SECS + 120) * 1000;
 const POLL_INTERVAL_MS = Number(process.env.MAMBA_POLL_INTERVAL_MS) || 3000;
 
 const TERMINAL = new Set(["SUCCEEDED", "FAILED", "TIMED-OUT", "ABORTED", "ABORTING"]);
@@ -92,7 +98,7 @@ async function runActor(
   let started: Response;
   try {
     started = await fetch(
-      `https://api.apify.com/v2/acts/${actorPath}/runs`,
+      `https://api.apify.com/v2/acts/${actorPath}/runs?timeout=${ACTOR_RUN_TIMEOUT_SECS}`,
       { method: "POST", headers, body: JSON.stringify(input) },
     );
   } catch (err) {
