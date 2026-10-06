@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.3",
   "name": "mcp-company-firmographic-enricher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server that enriches a company domain into firmographics: employee band, industry, HQ, founded year, revenue estimate, logo, and description, with source provenance.",
   "author": {
     "name": "Mamba Labs"
