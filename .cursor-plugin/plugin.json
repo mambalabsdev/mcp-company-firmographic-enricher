@@ -1,7 +1,7 @@
 {
   "name": "mcp-company-firmographic-enricher",
   "displayName": "Company Firmographic Enricher",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "MCP server for the Mamba Labs Company Firmographic Enricher actor on Apify. Enrich a company domain into structured firmographics: employee band, industry, HQ, founded year, revenue estimate, logo, and description, with source provenance. Clay-ready output.",
   "author": {
     "name": "Mamba Labs",

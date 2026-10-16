@@ -67,8 +67,18 @@ Get your token at https://console.apify.com/account/integrations, paste it in, a
 - `batchSize` (number): domains enriched concurrently per wave in batch mode. Default 5, maximum 10.
 - `skipCache` (boolean): force a fresh enrichment and ignore the 7 day result cache.
 - `failOnMostlyEmpty` (boolean): by default the run ends FAILED when more than half the rows resolve no firmographic field, and this tool then returns an error. The rows are still saved, each with `resolution_status` and `empty_reason`. Set false to end the run SUCCEEDED and get the rows back. Default true.
+- `max_charge_usd` (optional): a cost cap in USD for this run. The actor stops before an item that could take its charges past this amount. Omit it to rely on the maximum cost per run set in Apify.
 
 The tool starts the actor run and polls it to a finished status, so a long run is not cut off at 300 seconds. The run is allowed 1,800 seconds. If it is still going two minutes after that, the call stops waiting and returns the run ID with a link to it in the Apify Console, where the results land when it finishes. A run that does not succeed comes back as an error with its run ID and status.
+
+## Pricing
+
+Price per event on the Apify FREE plan, from the live pricing record; paid Apify plans pay less per event.
+
+| Event | Price (USD) |
+| --- | --- |
+| Actor Start (`apify-actor-start`) | 0.00005 |
+| result (`apify-default-dataset-item`) | 0.004 |
 
 ## Full actor documentation
 
@@ -80,7 +90,7 @@ https://apify.com/mambalabs/company-firmographic-enricher
 
 ## Mamba Labs GTM Suite
 
-This server is part of the **Mamba Labs GTM Suite**, a fleet of 54 MCP servers for go-to-market data, each backed by a dedicated Apify actor. The table lists the actors the suite started with; every server is listed at https://mambabuilt.com.
+This server is part of the **Mamba Labs GTM Suite**, a fleet of 58 MCP servers for go-to-market data, each backed by a dedicated Apify actor. The table lists the actors the suite started with; every server is listed at https://mambabuilt.com.
 
 | Actor | Immutable Actor ID |
 |---|---|
