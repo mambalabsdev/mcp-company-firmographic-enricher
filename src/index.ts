@@ -205,12 +205,13 @@ server.registerTool(
       "Enrich a company domain into structured firmographics: employee band, industry, HQ, founded year, revenue estimate, logo, and description, with source provenance. Parsed from the company's schema.org/Organization JSON-LD and HTML meta tags and returned as a flat, Clay-ready JSON row with a source_signals array and a data_completeness score. Read-only; requires an APIFY_TOKEN and consumes Apify credits per call.",
     annotations: {
       title: "Enrich Company Firmographics",
-      readOnlyHint: true,
+      readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: true,
     },
     inputSchema: {
+      max_charge_usd: z.number().min(0).optional().describe("Optional. The run stops before the next result that would take this run's charges over this amount, and keeps every result already charged. Leave empty to rely only on the maximum cost per run you set in Apify."),
       domain: z
         .string()
         .optional()
@@ -240,7 +241,7 @@ server.registerTool(
         .describe("By default the run ends FAILED when more than half the rows resolve no firmographic field (industry, employee count, HQ, or founded year); the rows are still saved, each with resolution_status and empty_reason. Set false to end SUCCEEDED with a warning instead, so this tool returns the rows rather than an error. Default: true."),
     },
   },
-  async ({ domain, company_name, domains, batchSize, skipCache, failOnMostlyEmpty }) => {
+  async ({ domain, company_name, domains, batchSize, skipCache, failOnMostlyEmpty, max_charge_usd }) => {
     if (
       (domain === undefined || domain === "") &&
       (!Array.isArray(domains) || domains.length === 0)
@@ -253,7 +254,7 @@ server.registerTool(
     return runActor(
       "YlUtLWjfPpqykmB8g",
       "Company Firmographic Enricher",
-      compact({ domain, company_name, domains, batchSize, skipCache, failOnMostlyEmpty }),
+      compact({ max_charge_usd, domain, company_name, domains, batchSize, skipCache, failOnMostlyEmpty }),
     );
   },
 );

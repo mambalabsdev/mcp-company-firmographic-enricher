@@ -14,9 +14,9 @@ const TOOL_NAME = "enrich_company_firmographics";
 const ACTOR_ID = "YlUtLWjfPpqykmB8g";
 // Every input the live actor exposes to a buyer must be exposed by the tool.
 // Excluded by rule: source_tag (internal or test only fields).
-const ACTOR_INPUTS = ["batchSize","company_name","domain","domains","failOnMostlyEmpty","skipCache"];
+const ACTOR_INPUTS = ["max_charge_usd","batchSize","company_name","domain","domains","failOnMostlyEmpty","skipCache"];
 // The tool's full input list, so a dropped or renamed parameter fails here.
-const TOOL_INPUTS = ["batchSize","company_name","domain","domains","failOnMostlyEmpty","skipCache"];
+const TOOL_INPUTS = ["max_charge_usd","batchSize","company_name","domain","domains","failOnMostlyEmpty","skipCache"];
 const TOOL_REQUIRED = [];
 const SAMPLE_ARGS = {"domain":"stripe.com"};
 const RUN_QUERY = "?timeout=1800";
