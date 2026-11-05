@@ -92,7 +92,7 @@ https://apify.com/mambalabs/company-firmographic-enricher
 
 ## Mamba Labs GTM Suite
 
-This server is part of the **Mamba Labs GTM Suite**, a fleet of 58 MCP servers for go-to-market data, each backed by a dedicated Apify actor. The table lists the actors the suite started with; every server is listed at https://mambabuilt.com.
+This server is part of the **Mamba Labs GTM Suite**, a fleet of 103 MCP servers for go-to-market data, each backed by a dedicated Apify actor. The table lists the actors the suite started with; every server is listed at https://mambabuilt.com.
 
 | Actor | Immutable Actor ID |
 |---|---|
